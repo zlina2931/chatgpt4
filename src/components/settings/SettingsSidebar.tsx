@@ -45,7 +45,7 @@ export default () => {
             使用说明
           </a>
           <span class="px-1"> · </span>
-          <a href="https://github.com/ninvfeng/chatgpt4" target="_blank" rel="noreferrer" class="hv-foreground">
+          <a href="https://github.com/1042782229/chatgpt4" target="_blank" rel="noreferrer" class="hv-foreground">
             Github
           </a>
         </div>
