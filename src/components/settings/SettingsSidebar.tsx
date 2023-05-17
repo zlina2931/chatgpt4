@@ -45,8 +45,8 @@ export default () => {
             使用说明
           </a>
           <span class="px-1"> · </span>
-          <a href="https://github.com/1042782229/chatgpt4" target="_blank" rel="noreferrer" class="hv-foreground">
-            Github
+          <a href="https://tdimg.s3.ap-east-1.amazonaws.com/gpt3.5.html" target="_blank" rel="noreferrer" class="hv-foreground">
+            GPT3.5
           </a>
         </div>
       </footer>
