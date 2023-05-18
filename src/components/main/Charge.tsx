@@ -14,7 +14,7 @@ export default (props: Props) => {
       props.setUser({ ...props.user() })
     }, 3000)
   })
-
+  let qr = ""
   let emailRef: HTMLInputElement
 
   const [countdown, setCountdown] = createSignal(0)
@@ -46,8 +46,14 @@ export default (props: Props) => {
   const close = () => {
     setShowCharge(false)
   }
-
+  const isMobile = () => {
+      let flag = navigator.userAgent.match(
+          /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+      );
+      return flag;
+  }
   const getPaycode = async(price: number) => {
+    qr = ""
     var flow_id = ''
     const response = await fetch('/api/getpaycode', {
       method: 'POST',
@@ -61,6 +67,9 @@ export default (props: Props) => {
     })
     const responseJson = await response.json()
     if (responseJson.code === 200) {
+      if(isMobile()){
+        qr = responseJson.data.qr
+      }
       setUrl(responseJson.data.url)
       flow_id = responseJson.data.flow_id
       setCountdown(300)
@@ -136,6 +145,12 @@ export default (props: Props) => {
               请在{countdown()}秒内完成支付
             </span>
             <img class="w-1/3 mt-2" src={url()} />
+            <Show when={qr}>
+              <div class="mt-4 flex space-x-2">
+                <a target="_blank" href={qr}  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">去支付
+                </a>
+              </div>
+            </Show>
           </Show>
         </div>
 
