@@ -48,6 +48,7 @@ export default (props: Props) => {
   }
 
   const getPaycode = async(price: number) => {
+    var flow_id = ''
     const response = await fetch('/api/getpaycode', {
       method: 'POST',
       headers: {
@@ -61,6 +62,7 @@ export default (props: Props) => {
     const responseJson = await response.json()
     if (responseJson.code === 200) {
       setUrl(responseJson.data.url)
+      flow_id = responseJson.data.flow_id
       setCountdown(300)
       const intv = setInterval(() => {
         setCountdown(countdown() - 1)
@@ -83,6 +85,8 @@ export default (props: Props) => {
             },
             body: JSON.stringify({
               token: localStorage.getItem('token'),
+              flow_id:flow_id
+
             }),
           })
           const responseJson = await response.json()
@@ -106,11 +110,12 @@ export default (props: Props) => {
     <div id="input_container" class="mt-2 max-w-[450px]">
       <p mt-1 op-60>
         Hi,{props.user().nickname} 剩余额度{props.user().word}字
-        <span onClick={() => { setShowCharge(true) }} class="border-1 px-2 py-1 ml-2 rounded-md transition-colors bg-slate/20 cursor-pointer hover:bg-slate/50">充值</span>
+        <span onClick={() => { setShowCharge(true) }} class="border-1 px-2 py-1 ml-2 rounded-md transition-colors bg-slate/20 cursor-pointer hover:bg-slate/50">支付宝充值</span>
       </p>
       <Show when={showCharge()}>
         <div class="mt-4">
           <Show when={!url()}>
+          <a href="https://appfront0220.s3.ap-southeast-1.amazonaws.com/qmzc/2023-02-23/WechatIMG35.jpeg">如充值未到账或有使用问题,请点击联系客服</a><br/>
             <span class="text-sm">
               请选择充值金额, GPT4按字数计费(注意!不是次数)
             </span>
