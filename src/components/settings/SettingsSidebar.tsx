@@ -45,7 +45,7 @@ export default () => {
             使用说明
           </a>
           <span class="px-1"> · </span>
-          <a href="https://tdimg.s3.ap-east-1.amazonaws.com/gpt3.5.html" target="_blank" rel="noreferrer" class="hv-foreground">
+          <a href="https://gpt100.chatxyz.online" target="_blank" rel="noreferrer" class="hv-foreground">
             GPT3.5站点
           </a>
         </div>
