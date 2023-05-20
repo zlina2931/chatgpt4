@@ -37,7 +37,7 @@ export default () => {
       <footer class="h-14 fi justify-between px-3">
         <ThemeToggle />
         <div text-xs op-40 px-2>
-          <a href="https://img.wzjo2o.com/1684026296469.jpg" target="_blank" rel="noreferrer" class="hv-foreground">
+          <a href="https://img.wzjo2o.com/1684584324195.jpg" target="_blank" rel="noreferrer" class="hv-foreground">
             加群防失联
           </a>
           <span class="px-1"> · </span>
