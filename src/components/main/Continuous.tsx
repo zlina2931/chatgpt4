@@ -50,6 +50,7 @@ export default (props: Props) => {
             user={props.user}
           />
         </div>
+        <p class="px-6 pb-2 mt-2 text-xs text-yellow-900">注意:连续对话消耗的字数会叠加;不需要可选择单次对话,但无法理解上下文.</p>
         <For each={props.messages()}>
           {(message, index) => (
             <div class="border-b border-lighter">
