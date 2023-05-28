@@ -45,7 +45,7 @@ export default () => {
             使用说明
           </a>
           <span class="px-1"> · </span>
-          <a href="https://gpt99.chatxyz.online" target="_blank" rel="noreferrer" class="hv-foreground">
+          <a href="https://gpt102.chatxyz.online" target="_blank" rel="noreferrer" class="hv-foreground">
             GPT3.5站点
           </a>
         </div>
