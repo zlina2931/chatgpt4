@@ -1,3 +1,4 @@
+import { getSettingsByProviderId, setSettingsByProviderId } from '@/stores/settings'
 import { For, Show, onMount } from 'solid-js'
 import { useStore } from '@nanostores/solid'
 import { conversationMapSortList, currentConversationId } from '@/stores/conversation'
@@ -35,6 +36,17 @@ export default (props: Props) => {
         if (responseJson.code === 200) {
           localStorage.setItem('user', JSON.stringify(responseJson.data))
           props.setUser(responseJson.data)
+
+          setTimeout(() => {
+            const setting = getSettingsByProviderId('provider-openai')
+            setSettingsByProviderId('provider-openai', {
+              authToken: localStorage.getItem('token') as string,
+              maxTokens: setting.maxTokens,
+              model: setting.model,
+              temperature: setting.temperature,
+            })
+          }, 1000)
+
         } else {
           props.setIsLogin(false)
         }
