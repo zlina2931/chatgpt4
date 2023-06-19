@@ -126,17 +126,17 @@ export default (props: Props) => {
           <Show when={!url()}>
           <a href="https://appfront0220.s3.ap-southeast-1.amazonaws.com/qmzc/2023-02-23/WechatIMG35.jpeg">如充值未到账或有使用问题,请点击联系客服</a><br/>
             <span class="text-sm">
-              请选择充值金额, GPT4按字数计费(注意!不是次数)
+              年中充值优惠活动,请选择充值金额, GPT4按字数计费(注意!不是次数)
             </span>
-            <div class="flex space-x-2 text-sm">
+            <div class="flex space-x-2 text-xs">
               <button onClick={() => { getPaycode(5) }} class="w-1/3 h-12 mt-2 px-4 py-2 bg-slate bg-op-15 hover:bg-op-20 rounded-sm">
-                5元<br />5000字
+                5元<br />6000字(原5000)
               </button>
               <button onClick={() => { getPaycode(10) }} class="w-1/3 h-12 mt-2 px-4 py-2 bg-slate bg-op-15 hover:bg-op-20 rounded-sm">
-                10元<br />10500字
+                10元<br />12500字(原10500)
               </button>
               <button onClick={() => { getPaycode(20) }} class="w-1/3 h-12 mt-2 px-4 py-2 bg-slate bg-op-15 hover:bg-op-20 rounded-sm">
-                20元<br />22000字
+                20元<br />26000字(原22000)
               </button>
             </div>
           </Show>
