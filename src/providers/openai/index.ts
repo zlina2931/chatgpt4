@@ -1,18 +1,15 @@
 import {
-  handleContinuousPrompt,
-  handleImagePrompt,
+  handlePrompt,
   handleRapidPrompt,
-  handleSinglePrompt,
 } from './handler'
 import type { Provider } from '@/types/provider'
+let authToken = ''
+
+// 使用 localStorage 的代码
+if (typeof window !== 'undefined' && typeof localStorage !== 'undefined')
+  authToken = localStorage.getItem('token') as string
 
 const providerOpenAI = () => {
-  let authToken = ''
-
-  // 使用 localStorage 的代码
-  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined')
-    authToken = localStorage.getItem('token') as string
-
   const provider: Provider = {
     id: 'provider-openai',
     icon: 'i-simple-icons-openai', // @unocss-include
@@ -36,8 +33,9 @@ const providerOpenAI = () => {
         description: 'ChatGPT版本',
         type: 'select',
         options: [
-          // { value: 'gpt-3.5-turbo', label: 'gpt-3.5-turbo' },
           { value: 'gpt-4', label: 'gpt-4' },
+          { value: 'gpt-4-0314', label: 'gpt-4-0314' },
+          { value: 'gpt-4-0613', label: 'gpt-4-0613' },
         ],
         default: 'gpt-4',
       },
@@ -68,22 +66,28 @@ const providerOpenAI = () => {
         description: '认证信息,无需修改',
         default: authToken,
       },
+    ],
+    bots: [
+      {
+        id: 'chat_continuous',
+        type: 'chat_continuous',
+        name: '连续对话 (可理解上下文,消耗多)',
+        settings: [],
+      },
+      {
+        id: 'chat_single',
+        type: 'chat_single',
+        name: '单次对话 (消耗少,无上下文)',
+        settings: [],
+      },
       // {
-      //   key: 'top_p',
-      //   name: 'Top P',
-      //   description: 'An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.',
-      //   type: 'slider',
-      //   min: 0,
-      //   max: 1,
-      //   default: 1,
-      //   step: 0.01,
+      //   id: 'image_generation',
+      //   type: 'image_generation',
+      //   name: 'DALL·E',
+      //   settings: [],
       // },
     ],
-    conversationSettings: [],
-    supportConversationType: ['continuous', 'single'],
-    handleSinglePrompt,
-    handleContinuousPrompt,
-    handleImagePrompt,
+    handlePrompt,
     handleRapidPrompt,
   }
   return provider

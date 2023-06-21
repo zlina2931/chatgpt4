@@ -4,7 +4,6 @@ export interface OpenAIFetchPayload {
   body: Record<string, any>
   signal?: AbortSignal
 }
-
 const apiKey = import.meta.env.OPENAI_API_KEY
 const baseUrl = import.meta.env.OPENAI_API_BASE_URL ? import.meta.env.OPENAI_API_BASE_URL : 'https://api.openai.com'
 

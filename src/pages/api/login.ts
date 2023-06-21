@@ -10,6 +10,7 @@ export const post: APIRoute = async(context) => {
   const response = await fetch(`${import.meta.env.API_URL}/login/loreg`, {
     headers: {
       'Content-Type': 'application/json',
+      'App-Referer': referer as string,
     },
     method: 'POST',
     body: JSON.stringify({

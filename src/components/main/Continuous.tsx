@@ -43,26 +43,45 @@ export default (props: Props) => {
   return (
     <>
       <div class="scroll-list relative flex flex-col h-full overflow-y-scroll" ref={scrollRef!}>
+        <div class="w-full">
 
-        <div class="px-6 pb-2">
-          <Charge
-            setUser={props.setUser}
-            user={props.user}
-          />
+          <div class="px-6 pb-2">
+            <Charge
+              setUser={props.setUser}
+              user={props.user}
+            />
+          </div>
+          <div class="px-6 text-gray-500 text-xs my-2">
+            注意:连续对话字数消耗很快 (建议每次都开新对话)
+          </div>
+          <For each={props.messages()}>
+            {(message, index) => (
+              <div class="border-b border-base">
+                <MessageItem
+                  conversationId={props.conversationId}
+                  message={message}
+                  handleStreaming={handleStreamableTextUpdate}
+                  index={index()}
+                />
+              </div>
+            )}
+          </For>
         </div>
-        <p class="px-6 pb-2 mt-2 text-xs text-yellow-900">注意:连续对话消耗的字数会连续累加;不需要可选择单次对话,但无法理解上下文.</p>
-        <For each={props.messages()}>
-          {(message, index) => (
-            <div class="border-b border-lighter">
-              <MessageItem
-                conversationId={props.conversationId}
-                message={message}
-                handleStreaming={handleStreamableTextUpdate}
-                // index={index()}
-              />
-            </div>
-          )}
-        </For>
+        {/* use for html2Canvas */}
+        <div id="message_list_wrapper" class="w-full m-auto clipped hidden">
+          <For each={props.messages().filter(item => item.isSelected)}>
+            {(message, index) => (
+              <div class="border-b border-base">
+                <MessageItem
+                  conversationId={props.conversationId}
+                  message={message}
+                  handleStreaming={handleStreamableTextUpdate}
+                  index={index()}
+                />
+              </div>
+            )}
+          </For>
+        </div>
       </div>
       <Show when={!isScrollBottom() && !$isSendBoxFocus()}>
         <div

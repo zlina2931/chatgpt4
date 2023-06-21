@@ -1,8 +1,9 @@
 import { getSettingsByProviderId, setSettingsByProviderId } from '@/stores/settings'
 import { For, Show, onMount } from 'solid-js'
 import { useStore } from '@nanostores/solid'
-import { conversationMapSortList, currentConversationId } from '@/stores/conversation'
-import { showConversationEditModal } from '@/stores/ui'
+import { useI18n } from '@/hooks'
+import { addConversation, conversationMapSortList, currentConversationId } from '@/stores/conversation'
+import { getSettingsByProviderId, setSettingsByProviderId } from '@/stores/settings'
 import Login from './Login'
 import Charge from './Charge'
 import type { User } from '@/types'
@@ -14,8 +15,8 @@ interface Props {
   setUser: Setter<User>
   user: Accessor<User>
 }
-
 export default (props: Props) => {
+  const { t } = useI18n()
   const $conversationMapSortList = useStore(conversationMapSortList)
 
   onMount(async() => {
@@ -36,7 +37,6 @@ export default (props: Props) => {
         if (responseJson.code === 200) {
           localStorage.setItem('user', JSON.stringify(responseJson.data))
           props.setUser(responseJson.data)
-
           setTimeout(() => {
             const setting = getSettingsByProviderId('provider-openai')
             setSettingsByProviderId('provider-openai', {
@@ -46,7 +46,6 @@ export default (props: Props) => {
               temperature: setting.temperature,
             })
           }, 1000)
-
         } else {
           props.setIsLogin(false)
         }
@@ -59,11 +58,10 @@ export default (props: Props) => {
   })
 
   return (
-    <div class="flex h-full pt-10">
-      <div class="flex flex-col w-full max-w-md mx-12 sm:mx-18 overflow-hidden space-y-2">
-
+    <div class="flex h-full">
+      <div class="flex flex-col w-full max-w-md mx-8 sm:mx-18">
         <Show when={!props.isLogin()}>
-          <div class="fi">
+          <div class="fi mt-12">
             <span class="text-(2xl transparent) font-extrabold bg-(clip-text gradient-to-r) from-sky-400 to-emerald-600">ChatGPT 4.0</span>
           </div>
           <div mt-1 op-60>欢迎来到人工智能时代</div>
@@ -73,7 +71,6 @@ export default (props: Props) => {
             setUser={props.setUser}
           />
         </Show>
-
         <Show when={props.isLogin()}>
           <Charge
             setUser={props.setUser}
@@ -83,28 +80,27 @@ export default (props: Props) => {
           <a href="https://lg8h2izm09.feishu.cn/docx/FhbmdO3LaoSnadxWWy7cpALSnLe" target="_blank" class="fi gap-2 h-8 text-sm op-60  text-yellow-500">如何区分GPT3.5和GPT4.0</a>
           <p class="mt-2 text-xs text-yellow-800">提示：建议收藏永久入口: https://tdimg.s3.ap-east-1.amazonaws.com/gpt4.html 防止域名被墙失联。</p>
           <div class="px-6 py-4 bg-base-100 border border-base rounded-lg">
-            <h2 class="text-xs op-30 uppercase my-2">最近对话</h2>
+            <h2 class="text-xs op-30 uppercase my-2">{t('conversations.recent')}</h2>
             <div class="flex flex-col items-start">
               <For each={$conversationMapSortList().slice(0, 3)}>
                 {instance => (
-                  <div class="fi gap-2 h-8 max-w-full text-sm hv-foreground" onClick={() => currentConversationId.set(instance.id)}>
-                    <div class={instance.icon || 'i-carbon-chat'} />
-                    <div class="flex-1 truncate">{instance.name || 'Untitled'}</div>
+                  <div class="fi gap-2 h-8 max-w-full hv-foreground" onClick={() => currentConversationId.set(instance.id)}>
+                    {instance.icon ? instance.icon : <div class="text-sm i-carbon-chat" />}
+                    <div class="flex-1 text-sm truncate">{instance.name || t('conversations.untitled')}</div>
                   </div>
                 )}
               </For>
               <Show when={!$conversationMapSortList().length}>
-                <div class="fi gap-2 h-8 text-sm op-20">最近暂无对话</div>
+                <div class="fi gap-2 h-8 text-sm op-20">{t('conversations.noRecent')}</div>
               </Show>
             </div>
           </div>
-
           <div
-            class="fcc gap-2 p-6 bg-base-100 hv-base border border-base rounded-lg"
-            onClick={() => showConversationEditModal.set(true)}
+            class="fcc mt-2 gap-2 p-6 bg-base-100 hv-base border border-base rounded-lg"
+            onClick={() => addConversation()}
           >
             <div class="i-carbon-add" />
-            <div class="flex-1 text-sm truncate">新对话</div>
+            <div class="flex-1 text-sm truncate">{t('conversations.add')}</div>
           </div>
         </Show>
       </div>

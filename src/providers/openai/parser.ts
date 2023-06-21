@@ -34,16 +34,15 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
         if (event.type === 'event') {
           const data = event.data
           if (data === '[DONE]') {
-            console.log(res_text)
-            consumeWord(globalSettings, res_text.length)
             controller.close()
+            consumeWord(globalSettings, res_text.length)
             return
           }
           try {
             const json = JSON.parse(data)
             const text = json.choices[0].delta?.content || ''
-            res_text += text
             const queue = encoder.encode(text)
+            res_text += text
             controller.enqueue(queue)
           } catch (e) {
             controller.error(e)

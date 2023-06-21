@@ -1,5 +1,6 @@
 import { For } from 'solid-js'
 import { useStore } from '@nanostores/solid'
+import { useI18n } from '@/hooks'
 import { platformSettingsUIList } from '@/stores/provider'
 import { providerSettingsMap, setSettingsByProviderId, updateGeneralSettings } from '@/stores/settings'
 import ThemeToggle from '../ui/ThemeToggle'
@@ -8,7 +9,9 @@ import AppGeneralSettings from './AppGeneralSettings'
 import type { GeneralSettings } from '@/types/app'
 
 export default () => {
+  const { t } = useI18n()
   const $providerSettingsMap = useStore(providerSettingsMap)
+  // bug: someTimes providerSettingsMap() is {}
   const generalSettings = () => {
     return ($providerSettingsMap().general || {}) as unknown as GeneralSettings
   }
@@ -16,14 +19,13 @@ export default () => {
   return (
     <div class="h-full flex flex-col bg-sidebar">
       <header class="h-14 fi border-b border-base px-4 text-xs uppercase">
-        设置
+        {t('settings.title')}
       </header>
       <main class="flex-1 overflow-auto">
         <AppGeneralSettings
           settingsValue={() => generalSettings()}
           updateSettings={updateGeneralSettings}
         />
-
         <For each={platformSettingsUIList}>
           {item => (
             <ProviderGlobalSettings

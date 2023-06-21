@@ -1,4 +1,4 @@
-import { Show, createSignal, onMount } from 'solid-js'
+import { Index, Show, createSignal, onMount } from 'solid-js'
 import type { User } from '@/types'
 import type { Accessor, Setter } from 'solid-js'
 interface Props {
@@ -6,8 +6,11 @@ interface Props {
   user: Accessor<User>
 }
 
+interface PayInfoType { name: string, price: number }
+
 export default (props: Props) => {
   onMount(async() => {
+    getPayInfo()
     setInterval(() => {
       const userJson = JSON.parse(localStorage.getItem('user') as string)
       props.user().word = userJson.word
@@ -20,6 +23,8 @@ export default (props: Props) => {
   const [countdown, setCountdown] = createSignal(0)
   const [url, setUrl] = createSignal('')
   const [showCharge, setShowCharge] = createSignal(false)
+
+  const [payinfo, setPayinfo] = createSignal<PayInfoType[]>([{ name: '', price: 0 }])
 
   const selfCharge = async() => {
     const response = await fetch('/api/exchange', {
@@ -41,6 +46,23 @@ export default (props: Props) => {
     } else {
       alert(responseJson.message)
     }
+  }
+
+  const getPayInfo = async() => {
+    const response = await fetch('/api/getpayinfo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: localStorage.getItem('token'),
+      }),
+    })
+    const responseJson = await response.json()
+    if (responseJson.code === 200)
+      setPayinfo(responseJson.data)
+    else
+      alert(responseJson.message)
   }
 
   const close = () => {
@@ -126,46 +148,47 @@ export default (props: Props) => {
           <Show when={!url()}>
           <a href="https://appfront0220.s3.ap-southeast-1.amazonaws.com/qmzc/2023-02-23/WechatIMG35.jpeg">如充值未到账或有使用问题,请点击联系客服</a><br/>
             <span class="text-sm">
+
               年中充值优惠活动,请选择充值金额, GPT4按字数计费(注意!不是次数)
             </span>
             <div class="flex space-x-2 text-xs">
-              <button onClick={() => { getPaycode(5) }} class="w-1/3 h-12 mt-2 px-4 py-2 bg-slate bg-op-15 hover:bg-op-20 rounded-sm">
-                5元<br />6000字(原5000)
-              </button>
-              <button onClick={() => { getPaycode(10) }} class="w-1/3 h-12 mt-2 px-4 py-2 bg-slate bg-op-15 hover:bg-op-20 rounded-sm">
-                10元<br />12500字(原10500)
-              </button>
-              <button onClick={() => { getPaycode(20) }} class="w-1/3 h-12 mt-2 px-4 py-2 bg-slate bg-op-15 hover:bg-op-20 rounded-sm">
-                20元<br />26000字(原22000)
-              </button>
+              <Index each={payinfo()}>
+                {(v, _) => (
+                  <button onClick={() => { getPaycode(v().price) }} class="w-1/3 h-12 mt-2 px-4 py-2 bg-slate bg-op-15 hover:bg-op-20 rounded-sm">
+                    {v().name}
+                  </button>
+                )}
+              </Index>
             </div>
           </Show>
           <Show when={url()}>
-            <span class="text-sm">
-              请在{countdown()}秒内完成支付
-            </span>
-            <img class="w-1/3 mt-2" src={url()} />
-            <Show when={qr}>
-              <div class="mt-4 flex space-x-2">
-                <a target="_blank" href={qr}  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">去支付
-                </a>
-              </div>
-            </Show>
+            <div class="flex flex-col">
+              <span class="text-sm">
+                请在{countdown()}秒内完成支付
+              </span>
+              <img class="w-3/5 max-w-[200px] mt-2" src={url()} />
+            </div>
+              <Show when={qr}>
+                <div class="mt-4 flex space-x-2">
+                  <a target="_blank" href={qr} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">去支付
+                  </a>
+                </div>
+              </Show>
           </Show>
         </div>
 
         <hr class="mt-4" />
         <div class="flex mt-4">
           <span class="text-sm">
-            有兑换码? 请在下方输入次数兑换码
+            有兑换码? 可在下方输入字数兑换码
           </span>
         </div>
 
         <input
           ref={emailRef!}
-          placeholder="请输入次数兑换码"
+          placeholder="请输入字数兑换码"
           type="text"
-          class="gpt-password-input w-full mt-2"
+          class="px-4 py-3 h-12 rounded-sm bg-(slate op-15) base-focus w-full mt-2"
           value=""
         />
         <button onClick={selfCharge} class="w-1/3 h-12 mt-2 px-4 py-2 bg-slate bg-op-15 hover:bg-op-20 rounded-sm">
