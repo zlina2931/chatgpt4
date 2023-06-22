@@ -158,13 +158,13 @@ export default (props: Props) => {
 
               年中充值优惠活动,请选择充值金额, GPT4按字数计费(注意!不是次数)
             </span>
-            <div class="flex space-x-2 text-xs">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-1">
               <Index each={payinfo()}>
                 {(v, _) => {
                   const [showTooltip, setShowTooltip] = createSignal(false)
 
                   return (
-                    <div class="w-full sm:w-1/2 md:w-1/3 h-12 mt-2 px-4 py-2 bg-slate bg-opacity-15 hover:bg-opacity-20 rounded-sm relative">
+                    <div class="col-span-1 h-12 mt-2 px-4 py-2 bg-slate bg-opacity-15 hover:bg-opacity-20 rounded-sm relative">
                       <button onClick={() => { getPaycode(v().price) }} >
                         {v().name}
                       </button>
@@ -178,7 +178,7 @@ export default (props: Props) => {
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 00-2 0v4a1 1 0 002 0V6zm-1 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
                           </svg>
                           {showTooltip() && (
-                            <div class="absolute right-0 top-full mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                            <div class="absolute right-0 top-full mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black  bg-white z-10">
                               <div class="p-4">
                                 <p>{v().tips}</p>
                               </div>
@@ -186,12 +186,12 @@ export default (props: Props) => {
                           )}
                         </div>
                       </Show>
-
                     </div>
                   )
                 }}
               </Index>
             </div>
+
           </Show>
           <Show when={url()}>
             <div class="flex flex-col">
