@@ -16,6 +16,8 @@ export interface User {
   times: number
   token: string
   word: number
+  temp_times: number
+  expired_at: string
 }
 
 export type ChatType = 'single' | 'continuous' | 'image'

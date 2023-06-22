@@ -1,12 +1,13 @@
 import { Index, Show, createSignal, onMount } from 'solid-js'
-import type { User } from '@/types'
+
 import type { Accessor, Setter } from 'solid-js'
+import type { User } from '@/types'
 interface Props {
   setUser: Setter<User>
   user: Accessor<User>
 }
 
-interface PayInfoType { name: string, price: number }
+interface PayInfoType { name: string, price: number, tips: string }
 
 export default (props: Props) => {
   onMount(async() => {
@@ -14,17 +15,19 @@ export default (props: Props) => {
     setInterval(() => {
       const userJson = JSON.parse(localStorage.getItem('user') as string)
       props.user().word = userJson.word
+      props.user().temp_times = userJson.temp_times
+      props.user().expired_at = userJson.expired_at
       props.setUser({ ...props.user() })
     }, 3000)
   })
-  let qr = ""
+  let qr = ''
   let emailRef: HTMLInputElement
 
   const [countdown, setCountdown] = createSignal(0)
   const [url, setUrl] = createSignal('')
   const [showCharge, setShowCharge] = createSignal(false)
 
-  const [payinfo, setPayinfo] = createSignal<PayInfoType[]>([{ name: '', price: 0 }])
+  const [payinfo, setPayinfo] = createSignal<PayInfoType[]>([{ name: '', price: 0, tips: '' }])
 
   const selfCharge = async() => {
     const response = await fetch('/api/exchange', {
@@ -69,14 +72,14 @@ export default (props: Props) => {
     setShowCharge(false)
   }
   const isMobile = () => {
-      let flag = navigator.userAgent.match(
-          /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-      );
-      return flag;
+    const flag = navigator.userAgent.match(
+      /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i,
+    )
+    return flag
   }
   const getPaycode = async(price: number) => {
-    qr = ""
-    var flow_id = ''
+    qr = ''
+    let flow_id = ''
     const response = await fetch('/api/getpaycode', {
       method: 'POST',
       headers: {
@@ -89,9 +92,9 @@ export default (props: Props) => {
     })
     const responseJson = await response.json()
     if (responseJson.code === 200) {
-      if(isMobile()){
+      if (isMobile())
         qr = responseJson.data.qr
-      }
+
       setUrl(responseJson.data.url)
       flow_id = responseJson.data.flow_id
       setCountdown(300)
@@ -116,7 +119,7 @@ export default (props: Props) => {
             },
             body: JSON.stringify({
               token: localStorage.getItem('token'),
-              flow_id:flow_id
+              flow_id,
 
             }),
           })
@@ -141,23 +144,52 @@ export default (props: Props) => {
     <div id="input_container" class="mt-2 max-w-[450px]">
       <p mt-1 op-60>
         Hi,{props.user().nickname} 剩余额度{props.user().word}字
+        <Show when={props.user().temp_times > 0}>
+          ;{props.user().temp_times}次({props.user().expired_at}到期)
+        </Show>
+
         <span onClick={() => { setShowCharge(true) }} class="border-1 px-2 py-1 ml-2 rounded-md transition-colors bg-slate/20 cursor-pointer hover:bg-slate/50">支付宝充值</span>
       </p>
       <Show when={showCharge()}>
         <div class="mt-4">
           <Show when={!url()}>
-          <a href="https://appfront0220.s3.ap-southeast-1.amazonaws.com/qmzc/2023-02-23/WechatIMG35.jpeg">如充值未到账或有使用问题,请点击联系客服</a><br/>
+            <a href="https://appfront0220.s3.ap-southeast-1.amazonaws.com/qmzc/2023-02-23/WechatIMG35.jpeg">如充值未到账或有使用问题,请点击联系客服</a><br />
             <span class="text-sm">
 
               年中充值优惠活动,请选择充值金额, GPT4按字数计费(注意!不是次数)
             </span>
             <div class="flex space-x-2 text-xs">
               <Index each={payinfo()}>
-                {(v, _) => (
-                  <button onClick={() => { getPaycode(v().price) }} class="w-1/3 h-12 mt-2 px-4 py-2 bg-slate bg-op-15 hover:bg-op-20 rounded-sm">
-                    {v().name}
-                  </button>
-                )}
+                {(v, _) => {
+                  const [showTooltip, setShowTooltip] = createSignal(false)
+
+                  return (
+                    <div class="w-1/3 h-12 mt-2 px-4 py-2 bg-slate bg-opacity-15 hover:bg-opacity-20 rounded-sm relative">
+                      <button onClick={() => { getPaycode(v().price) }} >
+                        {v().name}
+                      </button>
+                      <Show when={v().tips}>
+                        <div
+                          class="absolute top-0 right-0 p-1"
+                          onMouseEnter={() => setShowTooltip(true)}
+                          onMouseLeave={() => setShowTooltip(false)}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 text-gray-500">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 00-2 0v4a1 1 0 002 0V6zm-1 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                          </svg>
+                          {showTooltip() && (
+                            <div class="absolute right-0 top-full mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                              <div class="p-4">
+                                <p>{v().tips}</p>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </Show>
+
+                    </div>
+                  )
+                }}
               </Index>
             </div>
           </Show>
@@ -168,12 +200,12 @@ export default (props: Props) => {
               </span>
               <img class="w-3/5 max-w-[200px] mt-2" src={url()} />
             </div>
-              <Show when={qr}>
-                <div class="mt-4 flex space-x-2">
-                  <a target="_blank" href={qr} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">去支付
-                  </a>
-                </div>
-              </Show>
+            <Show when={qr}>
+              <div class="mt-4 flex space-x-2">
+                <a target="_blank" href={qr} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" rel="noreferrer">去支付
+                </a>
+              </div>
+            </Show>
           </Show>
         </div>
 

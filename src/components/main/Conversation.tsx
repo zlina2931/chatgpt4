@@ -29,6 +29,8 @@ export default () => {
     times: 0,
     token: '',
     word: 0,
+    temp_times: 0,
+    expired_at: '',
   })
 
   const currentConversation = () => {
