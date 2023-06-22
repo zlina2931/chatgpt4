@@ -52,7 +52,7 @@ export default (props: Props) => {
             />
           </div>
           <div class="px-6 text-gray-500 text-xs my-2">
-            注意:连续对话字数消耗很快 (建议每次都开新对话)
+            注意:连续对话消耗的字数会连续累加;不需要可选择单次对话,但无法理解上下文
           </div>
           <For each={props.messages()}>
             {(message, index) => (
