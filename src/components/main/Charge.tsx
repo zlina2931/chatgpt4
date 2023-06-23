@@ -178,7 +178,7 @@ export default (props: Props) => {
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 00-2 0v4a1 1 0 002 0V6zm-1 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
                           </svg>
                           {showTooltip() && (
-                            <div class="absolute right-0 top-full mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black  bg-white z-10">
+                            <div class="absolute right-0 top-full mt-2 w-38 rounded-md shadow-lg bg-white ring-1 ring-black  bg-white z-10">
                               <div class="p-4">
                                 <p>{v().tips}</p>
                               </div>
