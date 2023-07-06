@@ -4,8 +4,8 @@ export interface OpenAIFetchPayload {
   body: Record<string, any>
   signal?: AbortSignal
 }
-const apiKey = import.meta.env.OPENAI_API_KEY
-const baseUrl = import.meta.env.OPENAI_API_BASE_URL ? import.meta.env.OPENAI_API_BASE_URL : 'https://api.openai.com'
+let apiKey = import.meta.env.OPENAI_API_KEY
+let baseUrl = import.meta.env.OPENAI_API_BASE_URL ? import.meta.env.OPENAI_API_BASE_URL : 'https://api.openai.com'
 
 export const fetchChatCompletion = async(payload: OpenAIFetchPayload) => {
   const domainRes = await fetch(`${import.meta.env.API_URL}/api/gpt/getChatInfo`, {
@@ -18,25 +18,21 @@ export const fetchChatCompletion = async(payload: OpenAIFetchPayload) => {
     }),
   })
   const chatInfo = await domainRes.json()
-  console.log('开始')
-  let apikeyTemp = apiKey
-  let baseUrlTemp = baseUrl
   if (chatInfo.data.domain) {
-    apikeyTemp = chatInfo.data.key
-    baseUrlTemp = chatInfo.data.domain
+    apiKey = chatInfo.data.key
+    baseUrl = chatInfo.data.domain
   }
-  console.log(`json${JSON.stringify(chatInfo)}`)
 
   const initOptions = {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apikeyTemp}`,
+      'Authorization': `Bearer ${apiKey}`,
     },
     method: 'POST',
     body: JSON.stringify(payload.body),
     signal: payload.signal,
   }
-  return fetch(`${baseUrlTemp}/v1/chat/completions`, initOptions)
+  return fetch(`${baseUrl}/v1/chat/completions`, initOptions)
 }
 
 export const fetchImageGeneration = async(payload: OpenAIFetchPayload) => {
