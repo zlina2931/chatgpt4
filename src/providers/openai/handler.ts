@@ -50,7 +50,7 @@ const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal
       }
     }
     tempMessage.reverse()
-    const tokenLimit = 5000
+    const tokenLimit = 4000
     for (const msg of tempMessage) {
       text = text + msg.content
       if (!isWithinTokenLimit(text, tokenLimit))
