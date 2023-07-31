@@ -99,7 +99,7 @@ const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal
       model: payload.globalSettings.model as string,
       messages: payload.messages,
       temperature: payload.globalSettings.temperature as number,
-      max_tokens: (payload.globalSettings.maxTokens as number) * 2,
+      // max_tokens: (payload.globalSettings.maxTokens as number) * 2,
       top_p: payload.globalSettings.topP as number,
       stream: payload.globalSettings.stream as boolean ?? true,
     },
