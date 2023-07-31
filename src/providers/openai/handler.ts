@@ -1,3 +1,4 @@
+import { isWithinTokenLimit } from 'gpt-tokenizer'
 import { fetchChatCompletion, fetchImageGeneration } from './api'
 import { parseStream } from './parser'
 import type { HandlerPayload, Provider } from '@/types/provider'
@@ -37,6 +38,32 @@ export const handleRapidPrompt: Provider['handleRapidPrompt'] = async(prompt, gl
 const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal) => {
   // 消耗字数
   if (payload.conversationId !== 'temp') {
+    let tempMessage = payload.messages
+    let tempArr1 = []
+    let tempArr2 = []
+    let text = ''
+    for (let i = 0; i < 1; i++) {
+      if (tempMessage?.[i]) {
+        text += tempMessage?.[i]?.content || ''
+        tempArr1.push(tempMessage[i])
+        tempMessage = tempMessage.slice(1)
+      }
+    }
+    tempMessage.reverse()
+    const tokenLimit = 7900
+    for (const msg of tempMessage) {
+      text = text + msg.content
+      if (!isWithinTokenLimit(text, tokenLimit))
+        break
+      else
+        tempArr2.push(msg)
+    }
+    if (tempArr2.length > 0) {
+      tempArr2 = tempArr2.reverse()
+      tempArr1 = tempArr1.concat(tempArr2)
+    }
+
+    payload.messages = tempArr1
     let word_num = 0
     payload.messages.forEach((v) => {
       word_num += v.content.length

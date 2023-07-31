@@ -43,6 +43,7 @@
     "destr": "^1.2.2",
     "eslint": "^8.37.0",
     "eventsource-parser": "^0.1.0",
+    "gpt-tokenizer": "^2.1.1",
     "idb-keyval": "^6.2.0",
     "js-sha256": "^0.9.0",
     "katex": "^0.16.4",
