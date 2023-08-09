@@ -31,7 +31,7 @@ export default ({ conversationId, messages, user, setUser }: Props) => {
         />
       </div>
       <div class="px-6 text-gray-500 text-xs mt-2">
-        注意:单次对话模式新问题将直接覆盖老问题
+        注意:单次对话模式新问题将直接覆盖老问题;请使用chrome浏览器获得最佳体验效果
       </div>
       <div class="flex-[1] border-b border-base p-6 break-words overflow-y-scroll">
         <StreamableText
