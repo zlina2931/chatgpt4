@@ -37,7 +37,7 @@ export const handleRapidPrompt: Provider['handleRapidPrompt'] = async(prompt, gl
 
 const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal) => {
   // 消耗字数
-  if (payload.conversationId !== 'temp') {
+  // if (payload.conversationId !== 'temp') {
     let tempMessage = payload.messages
     let tempArr1 = []
     let tempArr2 = []
@@ -85,7 +85,7 @@ const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal
     const resJson = JSON.parse(res)
     if (resJson.code !== 200)
       return resJson.message
-  }
+  // }
 
   payload.messages.unshift({
     role: 'system',
