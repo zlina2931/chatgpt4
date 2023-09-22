@@ -39,7 +39,7 @@ export default () => {
       <footer class="h-14 fi justify-between px-3">
         <ThemeToggle />
         <div text-xs op-40 px-2>
-          <a href="https://chat11.chatxyz.online/" target="_blank" rel="noreferrer" class="hv-foreground">
+          <a href="https://gpts.chataic.online" target="_blank" rel="noreferrer" class="hv-foreground">
             收藏防失联
           </a>
           <span class="px-1"> · </span>
