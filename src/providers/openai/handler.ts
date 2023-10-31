@@ -109,11 +109,11 @@ const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal
 
   payload.messages.unshift({
     role: 'system',
-    content: '你是GPT4,不是GPT3,请认真思考后回答',
+    content: '你是GPT4,比GPT3聪明,请认真思考后回答',
   })
   payload.messages.unshift({
     role: 'system',
-    content: '你是GPT-4,不是GPT-3,请认真思考后回答',
+    content: '你是GPT-4,比GPT-3聪明,请认真思考后回答',
   })
 
   const response = await fetchChatCompletion({
