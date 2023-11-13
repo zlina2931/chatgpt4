@@ -2,7 +2,7 @@ import { createParser } from 'eventsource-parser'
 import type { ParsedEvent, ReconnectInterval } from 'eventsource-parser'
 import type { SettingsPayload } from '@/types/provider'
 
-const consumeWord = async(globalSettings: SettingsPayload, word_num: number) => {
+const consumeWord = async (globalSettings: SettingsPayload, word_num: number, chat_id:string) => {
   const useRes = await fetch(`${import.meta.env.API_URL}/api/gpt/consumeWord`, {
     headers: {
       'Content-Type': 'application/json',
@@ -13,6 +13,7 @@ const consumeWord = async(globalSettings: SettingsPayload, word_num: number) => 
       model: globalSettings.model as string,
       type: 'resp',
       word_num,
+      chat_id,
       app_key: import.meta.env.APP_KEY,
     }),
   })
@@ -22,7 +23,7 @@ const consumeWord = async(globalSettings: SettingsPayload, word_num: number) => 
     return resJson.message
 }
 
-export const parseStream = (rawResponse: Response, globalSettings: SettingsPayload) => {
+export const parseStream = (rawResponse: Response, globalSettings: SettingsPayload,chat_id:string) => {
   const encoder = new TextEncoder()
   const decoder = new TextDecoder()
   const rb = rawResponse.body as ReadableStream
@@ -35,7 +36,7 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
           const data = event.data
           if (data === '[DONE]') {
             controller.close()
-            consumeWord(globalSettings, res_text.length)
+            consumeWord(globalSettings, res_text.length, chat_id)
             return
           }
           try {

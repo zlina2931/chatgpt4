@@ -35,8 +35,22 @@ export const handleRapidPrompt: Provider['handleRapidPrompt'] = async(prompt, bo
   return ''
 }
 
+const generateRandomString=()=> {
+  var timestamp = new Date().getTime().toString();
+  var randomString = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (var i = 0; i < 7; i++) {
+    randomString += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+
+  return timestamp + randomString;
+}
+
+
 const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal) => {
   let isFree = false
+  const chat_id = generateRandomString()
   if (payload.conversationId === 'temp' && payload.globalSettings?.model === 'gpt-3.5-turbo') {
     const freeRes = await fetch(`${import.meta.env.API_URL}/api/gpt/titleCheck`, {
       headers: {
@@ -87,6 +101,7 @@ const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal
     payload.messages.forEach((v) => {
       word_num += v.content.length
     })
+    
     const useRes = await fetch(`${import.meta.env.API_URL}/api/gpt/consumeWord`, {
       headers: {
         'Content-Type': 'application/json',
@@ -99,6 +114,7 @@ const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal
         word_num,
         app_key: import.meta.env.APP_KEY,
         conversationId: payload.conversationId,
+        chat_id: chat_id,
       }),
     })
     const res = await useRes.text()
@@ -137,7 +153,7 @@ const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal
   }
   const isStream = response.headers.get('content-type')?.includes('text/event-stream')
   if (isStream) {
-    return parseStream(response, payload.globalSettings)
+    return parseStream(response, payload.globalSettings, chat_id)
   } else {
     const resJson = await response.json()
     return resJson.choices[0].message.content as string
