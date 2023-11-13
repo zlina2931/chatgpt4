@@ -30,6 +30,9 @@ export default ({ conversationId, messages, user, setUser }: Props) => {
           user={user}
         />
       </div>
+      <div class="px-6 text-gray-500 text-xs my-2">
+        <a href="https://lg8h2izm09.feishu.cn/docx/FhbmdO3LaoSnadxWWy7cpALSnLe" target="_blank" class="fi gap-2 h-8 text-sm op-60  text-yellow-500" rel="noreferrer">如何区分GPT3.5和GPT4.0</a>
+      </div>
       <div class="px-6 text-gray-500 text-xs mt-2">
         注意:单次对话模式新问题将直接覆盖老问题;请使用chrome浏览器获得最佳体验效果
       </div>
