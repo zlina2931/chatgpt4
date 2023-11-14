@@ -76,7 +76,7 @@ export default (props: Props) => {
             user={props.user}
           />
           <a href="https://lg8h2izm09.feishu.cn/docx/YU7UduJFNoMKSPxa94JcWkd0nJg" target="_blank" class="fi gap-2 h-8 text-sm op-60" rel="noreferrer">查看使用说明</a>
-          <a href="https://lg8h2izm09.feishu.cn/docx/FhbmdO3LaoSnadxWWy7cpALSnLe" target="_blank" class="fi gap-2 h-8 text-sm op-60  text-yellow-500" rel="noreferrer">为什么GPT4会回答自己是GPT3,如何区分GPT3.5和GPT4.0</a>
+          <a href="https://lg8h2izm09.feishu.cn/docx/FhbmdO3LaoSnadxWWy7cpALSnLe" target="_blank" class="fi gap-2 h-8 text-sm op-60  text-yellow-500" rel="noreferrer">如何区分GPT3.5和GPT4.0</a>
           <p class="mt-2 text-xs text-yellow-800">建议收藏永久入口: https://chat11.chatxyz.online 即可获取最新域名！</p>
           <div class="px-6 py-4 bg-base-100 border border-base rounded-lg">
             <h2 class="text-xs op-30 uppercase my-2">{t('conversations.recent')}</h2>
