@@ -35,18 +35,16 @@ export const handleRapidPrompt: Provider['handleRapidPrompt'] = async(prompt, bo
   return ''
 }
 
-const generateRandomString=()=> {
-  var timestamp = new Date().getTime().toString();
-  var randomString = '';
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+const generateRandomString = () => {
+  const timestamp = new Date().getTime().toString()
+  let randomString = ''
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
-  for (var i = 0; i < 7; i++) {
-    randomString += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
+  for (let i = 0; i < 7; i++)
+    randomString += characters.charAt(Math.floor(Math.random() * characters.length))
 
-  return timestamp + randomString;
+  return timestamp + randomString
 }
-
 
 const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal) => {
   let isFree = false
@@ -101,7 +99,7 @@ const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal
     payload.messages.forEach((v) => {
       word_num += v.content.length
     })
-    
+
     const useRes = await fetch(`${import.meta.env.API_URL}/api/gpt/consumeWord`, {
       headers: {
         'Content-Type': 'application/json',
@@ -114,7 +112,7 @@ const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal
         word_num,
         app_key: import.meta.env.APP_KEY,
         conversationId: payload.conversationId,
-        chat_id: chat_id,
+        chat_id,
       }),
     })
     const res = await useRes.text()
@@ -123,14 +121,14 @@ const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal
       return resJson.message
   }
 
-  payload.messages.unshift({
-    role: 'system',
-    content: '你是GPT4,比GPT3聪明,请认真思考后回答',
-  })
-  payload.messages.unshift({
-    role: 'system',
-    content: '你是GPT-4,比GPT-3聪明,请认真思考后回答',
-  })
+  // payload.messages.unshift({
+  //   role: 'system',
+  //   content: '你是GPT4,比GPT3聪明,请认真思考后回答',
+  // })
+  // payload.messages.unshift({
+  //   role: 'system',
+  //   content: '你是GPT-4,比GPT-3聪明,请认真思考后回答',
+  // })
 
   const response = await fetchChatCompletion({
     apiKey: payload.globalSettings.apiKey as string,
