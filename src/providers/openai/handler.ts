@@ -121,14 +121,10 @@ const handleChatCompletion = async(payload: HandlerPayload, signal?: AbortSignal
       return resJson.message
   }
 
-  // payload.messages.unshift({
-  //   role: 'system',
-  //   content: '你是GPT4,比GPT3聪明,请认真思考后回答',
-  // })
-  // payload.messages.unshift({
-  //   role: 'system',
-  //   content: '你是GPT-4,比GPT-3聪明,请认真思考后回答',
-  // })
+  payload.messages.unshift({
+    role: 'system',
+    content: 'You are ChatGPT based on GPT-4',
+  })
 
   const response = await fetchChatCompletion({
     apiKey: payload.globalSettings.apiKey as string,
