@@ -58,7 +58,7 @@ export const addConversation = action(conversationMap, 'addConversation', (map, 
   const instanceId = instance?.id || `id_${Date.now()}`
   const conversation: Conversation = {
     id: instanceId,
-    bot: botMetaList[0]?.value,
+    bot: botMetaList[1]?.value,
     name: instance?.name || '',
     icon: instance?.icon || '',
     lastUseTime: Date.now(),
