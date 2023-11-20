@@ -35,8 +35,8 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
         if (event.type === 'event') {
           const data = event.data
           if (data === '[DONE]') {
-            consumeWord(globalSettings, res_text.length, chat_id)
             controller.close()
+            consumeWord(globalSettings, res_text.length, chat_id)
             return
           }
           try {
