@@ -39,7 +39,7 @@ export default () => {
       <footer class="h-14 fi justify-between px-3">
         <ThemeToggle />
         <div text-xs op-40 px-2>
-          <a href="https://jyallimg.s3.ap-northeast-1.amazonaws.com/vision/2023-11-23/1700721544890363.jpg?versionId=SCOVW9AVevTv_MV7XfZPaZ3Kcms20kAk" target="_blank" rel="noreferrer" class="hv-foreground text-yellow-800">
+          <a href="https://jyallimg.s3.ap-northeast-1.amazonaws.com/vision/2023-11-23/1700721544890363.jpg?versionId=SCOVW9AVevTv_MV7XfZPaZ3Kcms20kAk" target="_blank" rel="noreferrer" class="hv-foreground text-yellow-300">
             加群防失联
           </a>
           <span class="px-1"> · </span>
