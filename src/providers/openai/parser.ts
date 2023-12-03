@@ -60,7 +60,7 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
           controller.close()
           return
         }
-        parser.feed(decoder.decode(value))
+        parser.feed(decoder.decode(value, { stream: true }))
       }
     },
   })
