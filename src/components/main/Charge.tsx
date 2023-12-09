@@ -171,6 +171,7 @@ export default (props: Props) => {
                       <Show when={v().tips}>
                         <div
                           class="absolute top-0 right-0 p-1"
+                          onClick={event => event.stopPropagation()}
                           onMouseEnter={() => setShowTooltip(true)}
                           onMouseLeave={() => setShowTooltip(false)}
                         >
