@@ -164,8 +164,8 @@ export default (props: Props) => {
                   const [showTooltip, setShowTooltip] = createSignal(false)
 
                   return (
-                    <div class="col-span-1 h-12 mt-2 px-4 py-2 bg-slate bg-opacity-15 hover:bg-opacity-20 text-xs rounded-sm relative">
-                      <button onClick={() => { getPaycode(v().price) }} >
+                    <div onClick={() => { getPaycode(v().price) }} class="col-span-1 h-12 mt-2 px-4 py-2 bg-slate bg-opacity-15 hover:bg-opacity-20 text-xs rounded-sm relative">
+                      <button >
                         {v().name}
                       </button>
                       <Show when={v().tips}>
