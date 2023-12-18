@@ -39,7 +39,7 @@ export default () => {
       <footer class="h-14 fi justify-between px-3">
         <ThemeToggle />
         <div text-xs op-40 px-2>
-          <a href="https://jyallimg.s3.ap-northeast-1.amazonaws.com/vision/2023-12-12/17023955647147312.jpg?versionId=lhZcxxfOdK1eeHj7aJqwkfknVwNFx7yZ" target="_blank" rel="noreferrer" class="hv-foreground text-yellow-300">
+          <a href="https://filesread.mwdevname.com/mc_shop/2023121900110399430.jpg" target="_blank" rel="noreferrer" class="hv-foreground text-yellow-300">
             加群防失联
           </a>
           <span class="px-1"> · </span>
