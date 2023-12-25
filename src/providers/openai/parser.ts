@@ -16,6 +16,8 @@ const consumeWord = async(globalSettings: SettingsPayload, word_num: number, cha
       chat_id,
       app_key: import.meta.env.APP_KEY,
     }),
+  }).catch((error) => {
+    console.log(`err${error.message()}`)
   })
   const res = await useRes.text()
   const resJson = JSON.parse(res)
@@ -36,6 +38,7 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
           const data = event.data
           console.log(`data${data}`)
           if (data === '[DONE]') {
+            consumeWord(globalSettings, res_text.length, chat_id)
             controller.close()
             return
           }
@@ -59,7 +62,6 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
         if (isDone) {
           console.log(`isDone${isDone}`)
           done = true
-          consumeWord(globalSettings, res_text.length, chat_id)
           controller.close()
           return
         }
