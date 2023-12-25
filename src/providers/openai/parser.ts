@@ -45,6 +45,7 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
             res_text += text
             controller.enqueue(queue)
           } catch (e) {
+            console.log(`error${e.message()}`)
             controller.error(e)
           }
         }
@@ -55,6 +56,7 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
       while (!done) {
         const { done: isDone, value } = await reader.read()
         if (isDone) {
+          console.log(`isDone${isDone}`)
           done = true
           consumeWord(globalSettings, res_text.length, chat_id)
           controller.close()
