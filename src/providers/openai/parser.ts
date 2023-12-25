@@ -34,6 +34,7 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
       const streamParser = (event: ParsedEvent | ReconnectInterval) => {
         if (event.type === 'event') {
           const data = event.data
+          console.log(`data${data}`)
           if (data === '[DONE]') {
             controller.close()
             return
