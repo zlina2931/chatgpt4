@@ -19,9 +19,12 @@ const consumeWord = async(globalSettings: SettingsPayload, word_num: number, cha
   }).catch((error) => {
     console.log(`err${error.message()}`)
   })
+
   const res = await useRes.text()
+  console.log(useRes)
   console.log(res)
   const resJson = JSON.parse(res)
+  console.log(resJson)
   if (resJson.code !== 200)
     return resJson.message
 }
