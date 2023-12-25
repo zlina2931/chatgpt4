@@ -18,16 +18,17 @@ const consumeWord = async(globalSettings: SettingsPayload, word_num: number, cha
         app_key: import.meta.env.APP_KEY,
       }),
     })
+    const res = await useRes.text()
+    console.log(`useRes.ok:${useRes.ok}`)
+    console.log(`useRes.text:${useRes.text}`)
+    console.log(`useRes.status:${useRes.status}`)
+    const resJson = JSON.parse(res)
+    console.log(resJson)
+    if (resJson.code !== 200)
+      return resJson.message
   } catch (err) {
     console.log(err)
   }
-
-  const res = await useRes.text()
-  console.log(`useRes:${useRes}`)
-  const resJson = JSON.parse(res)
-  console.log(resJson)
-  if (resJson.code !== 200)
-    return resJson.message
 }
 
 export const parseStream = (rawResponse: Response, globalSettings: SettingsPayload, chat_id: string) => {
