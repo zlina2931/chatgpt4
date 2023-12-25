@@ -51,7 +51,6 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
             res_text += text
             controller.enqueue(queue)
           } catch (e) {
-            console.log(`error${e.message()}`)
             controller.error(e)
           }
         }
