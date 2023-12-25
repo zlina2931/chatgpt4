@@ -160,7 +160,7 @@ export default (props: Props) => {
             <span class="text-sm">
 
               年末充值优惠活动,请选择充值金额, GPT4按字数计费(无时间限制)
-              {/* ;月卡按次数计费(30天有效期,每30天可购买一次) */}
+              ;月卡按次数计费(30天有效期,每30天可购买一次)
             </span>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-1">
               <Index each={payinfo()}>
