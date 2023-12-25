@@ -3,7 +3,7 @@ import type { ParsedEvent, ReconnectInterval } from 'eventsource-parser'
 import type { SettingsPayload } from '@/types/provider'
 
 const consumeWord = async(globalSettings: SettingsPayload, word_num: number, chat_id: string) => {
-  try {
+  for (let i = 0; i < 3; i++) {
     const useRes = await fetch(`${import.meta.env.API_URL}/api/gpt/consumeWord`, {
       headers: {
         'Content-Type': 'application/json',
@@ -19,15 +19,12 @@ const consumeWord = async(globalSettings: SettingsPayload, word_num: number, cha
       }),
     })
     const res = await useRes.text()
-    console.log(`useRes.ok:${useRes.ok}`)
-    console.log(`useRes.text:${useRes.text}`)
-    console.log(`useRes.status:${useRes.status}`)
     const resJson = JSON.parse(res)
     console.log(resJson)
     if (resJson.code !== 200)
       return resJson.message
-  } catch (err) {
-    console.log(err)
+    if (useRes.ok)
+      break
   }
 }
 
@@ -42,7 +39,6 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
       const streamParser = (event: ParsedEvent | ReconnectInterval) => {
         if (event.type === 'event') {
           const data = event.data
-          console.log(`data${data}`)
           if (data === '[DONE]') {
             consumeWord(globalSettings, res_text.length, chat_id)
             controller.close()
@@ -66,7 +62,6 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
       while (!done) {
         const { done: isDone, value } = await reader.read()
         if (isDone) {
-          console.log(`isDone${isDone}`)
           done = true
           controller.close()
           return
