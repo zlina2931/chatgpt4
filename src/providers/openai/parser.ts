@@ -38,7 +38,7 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
           const data = event.data
           if (data === '[DONE]') {
             console.log(`${chat_id}DONE`)
-            controller.close()
+            // controller.close()
             return
           }
           try {
