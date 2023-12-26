@@ -3,29 +3,26 @@ import type { ParsedEvent, ReconnectInterval } from 'eventsource-parser'
 import type { SettingsPayload } from '@/types/provider'
 
 const consumeWord = async(globalSettings: SettingsPayload, word_num: number, chat_id: string) => {
-  for (let i = 0; i < 3; i++) {
-    const useRes = await fetch(`${import.meta.env.API_URL}/api/gpt/consumeWord`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Token': globalSettings.authToken as string,
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        model: globalSettings.model as string,
-        type: 'resp',
-        word_num,
-        chat_id,
-        app_key: import.meta.env.APP_KEY,
-      }),
-    })
-    const res = await useRes.text()
-    const resJson = JSON.parse(res)
-    console.log(resJson)
-    if (resJson.code !== 200)
-      return resJson.message
-    if (useRes.ok)
-      break
-  }
+  const useRes = await fetch(`${import.meta.env.API_URL}/api/gpt/consumeWord`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Token': globalSettings.authToken as string,
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      model: globalSettings.model as string,
+      type: 'resp',
+      word_num,
+      chat_id,
+      app_key: import.meta.env.APP_KEY,
+    }),
+  })
+  console.log(2)
+  const res = await useRes.text()
+  const resJson = JSON.parse(res)
+  console.log(resJson)
+  if (resJson.code !== 200)
+    return resJson.message
 }
 
 export const parseStream = (rawResponse: Response, globalSettings: SettingsPayload, chat_id: string) => {
@@ -40,7 +37,6 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
         if (event.type === 'event') {
           const data = event.data
           if (data === '[DONE]') {
-            consumeWord(globalSettings, res_text.length, chat_id)
             controller.close()
             return
           }
@@ -62,6 +58,7 @@ export const parseStream = (rawResponse: Response, globalSettings: SettingsPaylo
         const { done: isDone, value } = await reader.read()
         if (isDone) {
           done = true
+          await consumeWord(globalSettings, res_text.length, chat_id)
           controller.close()
           return
         }
