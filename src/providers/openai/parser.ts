@@ -17,7 +17,6 @@ const consumeWord = async(globalSettings: SettingsPayload, word_num: number, cha
       app_key: import.meta.env.APP_KEY,
     }),
   })
-  console.log(2)
   const res = await useRes.text()
   const resJson = JSON.parse(res)
   console.log(resJson)
