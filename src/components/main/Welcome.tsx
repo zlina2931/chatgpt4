@@ -77,7 +77,7 @@ export default (props: Props) => {
           />
           <a href="https://lg8h2izm09.feishu.cn/docx/YU7UduJFNoMKSPxa94JcWkd0nJg" target="_blank" class="fi gap-2 h-8 text-sm op-60" rel="noreferrer">查看使用说明</a>
           <a href="https://lg8h2izm09.feishu.cn/docx/FhbmdO3LaoSnadxWWy7cpALSnLe" target="_blank" class="fi gap-2 h-8 text-sm op-60  text-yellow-500" rel="noreferrer">如何区分GPT3.5和GPT4.0</a>
-          <a href="https://filesread.mwdevname.com/mc_shop/2023122900404632573.jpg" target="_blank" class="fi gap-2 h-8 text-sm op-60  text-yellow-500" rel="noreferrer">加群防失联</a>
+          <a href="https://filesread.mwdevname.com/mc_shop/2024010220252066812.jpg" target="_blank" class="fi gap-2 h-8 text-sm op-60  text-yellow-500" rel="noreferrer">加群防失联</a>
           {/* <p class="fi gap-2 h-8 text-sm op-60  text-yellow-200" >更新:默认模式更新为单次对话模式,如需连续对话,请点击(「新对话」--「设置」--选择「连续对话」) </p> */}
           <p class="mt-2 text-xs text-yellow-800">建议收藏永久入口: https://chat11.chatxyz.online 即可获取最新域名！请使用chrome浏览器获得最佳体验效果,其他浏览器可能因不兼容而无法响应</p>
           <div class="px-6 py-4 bg-base-100 border border-base rounded-lg">
