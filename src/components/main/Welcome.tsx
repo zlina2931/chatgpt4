@@ -61,9 +61,9 @@ export default (props: Props) => {
       <div class="flex flex-col w-full max-w-md mx-8 sm:mx-18">
         <Show when={!props.isLogin()}>
           <div class="fi mt-12">
-            <span class="text-(2xl transparent) font-extrabold bg-(clip-text gradient-to-r) from-sky-400 to-emerald-600">ChatGPT 4.0</span>
+            <span class="text-(2xl transparent) font-extrabold bg-(clip-text gradient-to-r) from-sky-400 to-emerald-600">GPT-4 & CHATXYZ</span>
           </div>
-          <div mt-1 op-60>欢迎来到人工智能时代</div>
+          <div mt-1 op-60>欢迎来到CHATXYZ,稳定可靠的AI供应商</div>
           <div op-60>验证邮箱开始使用</div>
           <Login
             setIsLogin={props.setIsLogin}
@@ -75,6 +75,11 @@ export default (props: Props) => {
             setUser={props.setUser}
             user={props.user}
           />
+          {/* <div class="px-6 py-4 bg-base-100 border border-base-100 rounded-lg" >
+            <h2 class="text-2xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-blue-500 text-transparent bg-clip-text">活动专区</h2>
+            <p class="text-lg mb-4">欢迎您成为我们的受邀活动用户！每日签到可免费领取字数,最高单次可领88888字。</p>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">签到</button>
+          </div> */}
           <a href="https://lg8h2izm09.feishu.cn/docx/YU7UduJFNoMKSPxa94JcWkd0nJg" target="_blank" class="fi gap-2 h-8 text-sm op-60" rel="noreferrer">查看使用说明</a>
           <a href="https://lg8h2izm09.feishu.cn/docx/FhbmdO3LaoSnadxWWy7cpALSnLe" target="_blank" class="fi gap-2 h-8 text-sm op-60  text-yellow-500" rel="noreferrer">如何区分GPT3.5和GPT4.0</a>
           <a href="https://jiyuimg.wzjo2o.com/ty2ZVXKxtWhUcFe0o86mA375UKj6rdtf.png" target="_blank" class="fi gap-2 h-8 text-sm op-60  text-yellow-500" rel="noreferrer">加群防失联</a>

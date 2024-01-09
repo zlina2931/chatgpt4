@@ -159,8 +159,8 @@ export default (props: Props) => {
             <a href="https://appfront0220.s3.ap-southeast-1.amazonaws.com/qmzc/2023-02-23/WechatIMG35.jpeg">如充值未到账或有使用问题,请点击联系客服</a><br />
             <span class="text-sm">
 
-              年末充值优惠活动,请选择充值金额, GPT4按字数计费(无时间限制)
-              ;<span class="font-extrabold">月卡按次数计费(30天有效期,每30天可购买一次)</span>
+              超值套餐,请选择充值金额, GPT4按字数计费(无时间限制,无购买限制)
+              ;<span class="font-extrabold">月卡按次数计费(30天有效期,每30天可购买一次月卡)</span>
             </span>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-1">
               <Index each={payinfo()}>
