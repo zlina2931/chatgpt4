@@ -60,9 +60,9 @@ export default (props: Props) => {
     <div class="flex h-full">
       <div class="flex flex-col w-full max-w-md mx-8 sm:mx-18">
         <Show when={!props.isLogin()}>
-          {/* <div class="fi mt-12 ">
-            <span class="text-2xl font-extrabold text-blue-900">GPT-4 & CHATXYZ</span>
-          </div> */}
+          <div class="fi mt-12 ">
+            <span class="text-(2xl transparent) font-extrabold bg-(clip-text gradient-to-r) from-sky-400 to-emerald-600">GPT-4 & CHATXYZ</span>
+          </div>
           <div mt-1 op-60>欢迎来到CHATXYZ,稳定可靠的AI供应商</div>
           <div op-60>验证邮箱开始使用</div>
           <Login
@@ -82,7 +82,7 @@ export default (props: Props) => {
           </div> */}
           <a href="https://lg8h2izm09.feishu.cn/docx/YU7UduJFNoMKSPxa94JcWkd0nJg" target="_blank" class="fi gap-2 h-8 text-sm op-60" rel="noreferrer">查看使用说明</a>
           <a href="https://lg8h2izm09.feishu.cn/docx/FhbmdO3LaoSnadxWWy7cpALSnLe" target="_blank" class="fi gap-2 h-8 text-sm op-60  text-yellow-500" rel="noreferrer">如何区分GPT3.5和GPT4.0</a>
-          <a href="https://jiyuimg.wzjo2o.com/ty2ZVXKxtWhUcFe0o86mA375UKj6rdtf.png" target="_blank" class="fi gap-2 h-8 text-sm op-60  text-yellow-500" rel="noreferrer">加群防失联</a>
+          <a href="https://jiyuimg.wzjo2o.com/vision/202401/1705644527905.jpg" target="_blank" class="fi gap-2 h-8 text-sm op-60  text-yellow-500" rel="noreferrer">加群防失联</a>
           {/* <p class="fi gap-2 h-8 text-sm op-60  text-yellow-200" >更新:默认模式更新为单次对话模式,如需连续对话,请点击(「新对话」--「设置」--选择「连续对话」) </p> */}
           <p class="mt-2 text-xs text-yellow-800">建议收藏永久入口: https://chat11.chatxyz.online 即可获取最新域名！请使用chrome浏览器获得最佳体验效果,其他浏览器可能因不兼容而无法响应</p>
           <div class="px-6 py-4 bg-base-100 border border-base rounded-lg">
