@@ -39,10 +39,10 @@ export default () => {
       <footer class="h-14 fi justify-between px-3">
         <ThemeToggle />
         <div text-xs op-40 px-2>
-          <a href="https://jiyuimg.wzjo2o.com/vision/202401/1705644527905.jpg" target="_blank" rel="noreferrer" class="hv-foreground text-yellow-300">
+          {/* <a href="https://jiyuimg.wzjo2o.com/vision/202401/1705644527905.jpg" target="_blank" rel="noreferrer" class="hv-foreground text-yellow-300">
             加群防失联
           </a>
-          <span class="px-1"> · </span>
+          <span class="px-1"> · </span> */}
           <a href="https://lg8h2izm09.feishu.cn/docx/YU7UduJFNoMKSPxa94JcWkd0nJg" target="_blank" rel="noreferrer" class="hv-foreground">
             使用说明
           </a>
