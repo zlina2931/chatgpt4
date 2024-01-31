@@ -33,9 +33,10 @@ const providerOpenAI = () => {
         description: 'ChatGPT版本',
         type: 'select',
         options: [
+          { value: 'gpt-4-1106-preview', label: 'gpt-4-1106-preview' },
           { value: 'gpt-4-0125-preview', label: 'gpt-4-0125-preview' },
         ],
-        default: 'gpt-4-0125-preview',
+        default: 'gpt-4-1106-preview',
       },
       {
         key: 'maxTokens',
