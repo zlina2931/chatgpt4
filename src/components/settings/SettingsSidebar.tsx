@@ -43,6 +43,10 @@ export default () => {
             加群防失联
           </a>
           <span class="px-1"> · </span> */}
+          <a href="https://nav.chatxyz.online" target="_blank" rel="noreferrer" class="hv-foreground text-yellow-300">
+            地址发布页
+          </a>
+          <span class="px-1"> · </span>
           <a href="https://lg8h2izm09.feishu.cn/docx/YU7UduJFNoMKSPxa94JcWkd0nJg" target="_blank" rel="noreferrer" class="hv-foreground">
             使用说明
           </a>
